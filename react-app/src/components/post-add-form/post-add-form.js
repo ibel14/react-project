@@ -1,7 +1,7 @@
 import React from 'react';
 
 const PostAddForm = () => {
-    return {
+    return (
         <form className="bottom-panel d-flex">
         <input
                 type="text"
@@ -13,7 +13,7 @@ const PostAddForm = () => {
             className="btn btn-outline-secondary">
             Добавить</button>
         </form>
-    }
+    )
 }
 
 export default PostAddForm;

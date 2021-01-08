@@ -6,7 +6,7 @@ const PostListItem = () => {
             <span className="app-list-item-label">
                 Hello ninja!
             </span>
-            <div classname="d-flex justify-content-center align-items-center">
+            <div className="d-flex justify-content-center align-items-center">
                 <button type="button" className="btn-star btn-sm">
                     <i className="fa fa-star"></i>
                 </button>

@@ -18,9 +18,9 @@ import '../search-panel/search-panel.css';
 const App = () => {
 
     const data = [
-        {label: "Going to learn React!! Shiish :)", important: true},
-        {label: "How about pizza?", important: false},
-        {label: "My first twitt!", important: false}
+        {label: "Going to learn React!! Shiish :)", important: true, id: 'asd'},
+        {label: "How about pizza?", important: false, id: 'cvb'},
+        {label: "My first twitt!", important: false, id: 'fth'}
     ];
 
     return (

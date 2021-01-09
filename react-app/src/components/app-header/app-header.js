@@ -1,6 +1,6 @@
 import React from 'react';
 
-import '../app-header/app-header.css';
+import './app-header.css';
 
 const AppHeader = ({liked, allPosts}) => {
     return(

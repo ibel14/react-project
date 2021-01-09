@@ -7,7 +7,6 @@ import PostList from '../post-list';
 import PostAddForm from '../post-add-form';
 
 import './app.css';
-import './index.css';
 
 
 export default class App extends Component {
@@ -18,7 +17,8 @@ export default class App extends Component {
                 {label: "Going to learn React!! Shiish :)", important: true, like: false, id: 1},
                 {label: "How about pizza?", important: false, like: false, id: 2},
                 {label: "My first twitt!", important: false, like: false, id: 3}
-            ]
+            ],
+            term: ''
         };
         this.deteleItem = this.deteleItem.bind(this);
         this.addItem = this.addItem.bind(this);
@@ -84,11 +84,23 @@ export default class App extends Component {
         })
     }
 
+    searchPost(items, term) {
+        if (term.length === 0) {
+            return items 
+        }
+
+        return items.filter( (item) => {
+            return item.label.indexOf(term) > -1
+        });
+    }
+
     render() {
-        const {data} = this.state;
+        const {data, term} = this.state;
 
         const liked = data.filter(item => item.like).length;
         const allPosts = data.length;
+
+        const visiblePosts = this.searchPost(data, term);
 
         return (
             <div className="app">
@@ -100,7 +112,7 @@ export default class App extends Component {
                     <PostStatusFilter/>
                     </div>
                     <PostList
-                     posts={this.state.data}
+                     posts={visiblePosts}
                      onDelete={this.deteleItem}
                      onToggleImportant={this.onToggleImportant}
                      onToggleLiked={this.onToggleLiked}/>

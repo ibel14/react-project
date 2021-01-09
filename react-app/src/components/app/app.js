@@ -24,6 +24,7 @@ export default class App extends Component {
         this.addItem = this.addItem.bind(this);
         this.onToggleImportant = this.onToggleImportant.bind(this);
         this.onToggleLiked = this.onToggleLiked.bind(this);
+        this.onUpdateSearch = this.onUpdateSearch.bind(this);
 
         this.maxId = 4;
     }
@@ -94,6 +95,10 @@ export default class App extends Component {
         });
     }
 
+    onUpdateSearch(term) {
+        this.setState({term})
+    }
+
     render() {
         const {data, term} = this.state;
 
@@ -108,7 +113,8 @@ export default class App extends Component {
                 liked={liked}
                 allPosts={allPosts}/>
                     <div className="search-panel d-flex">
-                    <SearchPanel/>
+                    <SearchPanel
+                    OnUpdateSearch={this.OnUpdateSearch}/>
                     <PostStatusFilter/>
                     </div>
                     <PostList

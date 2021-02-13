@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 
 import AppHeader from '../app-header';
 import SearchPanel from '../search-panel';
@@ -8,54 +8,40 @@ import PostAddForm from '../post-add-form';
 
 import './app.css';
 
+function App() {
+      
+    const [data, setData] = useState([
+        {label: "Going to learn React!! Shiish :)", important: true, like: false, id: 1},
+        {label: "How about pizza?", important: false, like: false, id: 2},
+        {label: "My first twitt!", important: false, like: false, id: 3}
+    ]);
 
-export default class App extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            data : [
-                {label: "Going to learn React!! Shiish :)", important: true, like: false, id: 1},
-                {label: "How about pizza?", important: false, like: false, id: 2},
-                {label: "My first twitt!", important: false, like: false, id: 3}
-            ],
-            term: '',
-            filter: 'all'
-        };
-        this.deteleItem = this.deteleItem.bind(this);
-        this.addItem = this.addItem.bind(this);
-        this.onToggleImportant = this.onToggleImportant.bind(this);
-        this.onToggleLiked = this.onToggleLiked.bind(this);
-        this.onUpdateSearch = this.onUpdateSearch.bind(this);
-        this.onFilterSelect = this.onFilterSelect.bind(this);
+    const [term, setTerm] = useState('');
+    const [filter, setFilter] = useState('all');
+    const [maxId, setMaxId] = useState(4);
 
-        this.maxId = 4;
-    }
-
-    deteleItem(id) {
-        this.setState(({data}) => {
+    const deteleItem = (id) => {
+        setData((data) => {
             const index = data.findIndex(elem => elem.id === id);
 
             const newArr = [...data.slice(0, index), ...data.slice(index + 1)];
 
-            return {
-                data: newArr
-            }
+            return newArr
         });
     }
 
-    addItem(body) {
+    const addItem = (body) => {
+        setMaxId(maxId +1)
         const newItem = {
             label: body,
             important: false,
-            id: this.maxId++
+            id: maxId
         }
-        this.setState(({data}) => {
+
+        setData((data) => {
             const newArr = [...data, newItem];
-            return {
-                data: newArr
-            }
+            return newArr
         })
-    }
 
     onToggleImportant(id) {
         this.setState(({data}) => {

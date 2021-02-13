@@ -43,6 +43,8 @@ function App() {
             return newArr
         })
 
+        // До этого момента переписал на хуки
+
     onToggleImportant(id) {
         this.setState(({data}) => {
             const index = data.findIndex(elem => elem.id === id);

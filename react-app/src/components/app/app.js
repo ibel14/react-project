@@ -45,8 +45,8 @@ function App() {
 
         // До этого момента переписал на хуки
 
-    onToggleImportant(id) {
-        this.setState(({data}) => {
+    const onToggleImportant = (id) => {
+        setData((data) => {
             const index = data.findIndex(elem => elem.id === id);
 
             const old = data[index];
@@ -54,14 +54,12 @@ function App() {
 
             const newArr = [...data.slice(0, index), newItem, ...data.slice(index + 1)];
 
-            return {
-                data: newArr
-            }
+            return newArr
         })
     }
 
-    onToggleLiked(id) {
-        this.setState(({data}) => {
+    const onToggleLiked = (id) => {
+        setData((data) => {
             const index = data.findIndex(elem => elem.id === id);
 
             const old = data[index];
@@ -69,13 +67,11 @@ function App() {
 
             const newArr = [...data.slice(0, index), newItem, ...data.slice(index + 1)];
 
-            return {
-                data: newArr
-            }
+            return newArr
         })
     }
 
-    searchPost(items, term) {
+    const searchPost = (items, term) => {
         if (term.length === 0) {
             return items 
         }
@@ -85,7 +81,15 @@ function App() {
         });
     }
 
-    filterPost(items, filter) {
+    const onUpdateSearch = (term) => {
+        setTerm(term)
+    }
+
+    const onFilterSelect = (filter) => {
+        setFilter(filter)
+    }
+
+    const filterPost = (items, filter) => {
         if (filter === 'like') {
             return items.filter(item => item.like)
         } else {
@@ -93,42 +97,31 @@ function App() {
         }
     }
 
-    onUpdateSearch(term) {
-        this.setState({term})
-    }
-
-    onFilterSelect(filter) {
-        this.setState({filter})
-    }
-
-    render() {
-        const {data, term, filter} = this.state;
-
-        const liked = data.filter(item => item.like).length;
-        const allPosts = data.length;
-
-        const visiblePosts = this.filterPost(this.searchPost(data, term), filter);
+    const liked = data.filter(item => item.like).length;
+    const allPosts = data.length;
+    const visiblePosts = this.filterPost(searchPost(data, term), filter);
 
         return (
-            <div className="app">
+            <AppBlock>
                 <AppHeader
                 liked={liked}
                 allPosts={allPosts}/>
-                    <div className="search-panel d-flex">
+                <div className="search-panel d-flex">
                     <SearchPanel
-                    OnUpdateSearch={this.OnUpdateSearch}/>
+                    OnUpdateSearch={OnUpdateSearch}/>
                     <PostStatusFilter
                     filter={filter}
-                    onFilterSelect={this.onFilterSelect}/>
-                    </div>
-                    <PostList
+                    onFilterSelect={onFilterSelect}/>
+                </div>
+                <PostList
                      posts={visiblePosts}
-                     onDelete={this.deteleItem}
-                     onToggleImportant={this.onToggleImportant}
-                     onToggleLiked={this.onToggleLiked}/>
-                    <PostAddForm
-                    onAdd={this.addItem}/>
-            </div>
+                     onDelete={deteleItem}
+                     onToggleImportant={onToggleImportant}
+                     onToggleLiked={onToggleLiked}/>
+                <PostAddForm
+                    onAdd={addItem}/>
+            </AppBlock>
         )
     }
-}
+
+export default App;
